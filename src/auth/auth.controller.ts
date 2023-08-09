@@ -13,6 +13,7 @@ import { AuthPayload } from './types/auth-payload';
 import { RegistrationDto } from './dto/Registration.dto';
 import { User } from '@prisma/client';
 import { Request } from 'express';
+import { Public } from './public.decorator';
 
 interface RequestWithUser extends Request {
   user: User;
@@ -23,13 +24,14 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @HttpCode(HttpStatus.OK)
+  @Public()
   @Post('login')
   async login(@Body() input: LoginDto): Promise<AuthPayload> {
-    const authPayload = await this.authService.login(input);
-    return authPayload;
+    return await this.authService.login(input);
   }
 
   @HttpCode(HttpStatus.CREATED)
+  @Public()
   @Post('register')
   async register(@Body() input: RegistrationDto): Promise<AuthPayload> {
     return await this.authService.register(input);

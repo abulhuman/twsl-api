@@ -6,6 +6,8 @@ import { ConfigModule } from '@nestjs/config';
 import { securityConfigSchema } from './common/configs/security.config.schema';
 import * as joi from 'joi';
 import { appConfigSchema } from './common/configs/app.config.schema';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './auth/jwt-auth.guard';
 
 const nestConfigSchema = joi.object({
   ...appConfigSchema,
@@ -21,6 +23,12 @@ const nestConfigSchema = joi.object({
     PrismaModule.forRoot(),
     AuthModule,
     UsersModule,
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
   ],
 })
 export class AppModule {}
