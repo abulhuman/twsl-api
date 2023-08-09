@@ -18,6 +18,15 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
 
+  if (configService.get<boolean>('CORS_ENABLED')) {
+    app.enableCors({
+      allowedHeaders: ['Content-Type', 'Authorization'],
+      origin: [
+        ...(JSON.parse(configService.get('ALLOWED_ORIGINS') ?? '[]') || []),
+      ],
+    });
+  }
+
   const port = configService.get('PORT');
   await app.listen(port || 3000, async () => {
     const logger = new Logger('NestApplication');

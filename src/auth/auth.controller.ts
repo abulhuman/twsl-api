@@ -38,7 +38,7 @@ export class AuthController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @Get('me')
+  @Get('whoami')
   async me(@Req() req: RequestWithUser): Promise<User> {
     return req.user;
   }

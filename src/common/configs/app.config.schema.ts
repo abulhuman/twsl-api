@@ -6,4 +6,5 @@ export const appConfigSchema = {
     .valid('development', 'production', 'test')
     .default('development'),
   DATABASE_URL: Joi.string().required(),
+  CORS_ENABLED: Joi.boolean().default(false),
 };
