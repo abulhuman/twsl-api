@@ -4,4 +4,5 @@ export type JwtPayload = {
   sub: number;
   email: string;
   type: UserTypeEnum;
+  address?: string;
 };

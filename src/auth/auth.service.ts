@@ -28,6 +28,7 @@ export class AuthService {
       sub: user.id,
       email,
       type: user.type,
+      address: user.address,
     });
   }
 
@@ -62,6 +63,7 @@ export class AuthService {
     sub: any;
     email: string;
     type: UserTypeEnum;
+    address?: string;
   }): AuthPayload {
     return {
       accessToken: this.generateAccessToken(jwtPayload),

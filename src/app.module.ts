@@ -8,6 +8,7 @@ import * as joi from 'joi';
 import { appConfigSchema } from './common/configs/app.config.schema';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
+import { OrdersModule } from './orders/orders.module';
 
 const nestConfigSchema = joi.object({
   ...appConfigSchema,
@@ -20,9 +21,12 @@ const nestConfigSchema = joi.object({
       isGlobal: true,
       validationSchema: nestConfigSchema,
     }),
-    PrismaModule.forRoot(),
+    PrismaModule.forRoot({
+      isGlobal: true,
+    }),
     AuthModule,
     UsersModule,
+    OrdersModule,
   ],
   providers: [
     {
